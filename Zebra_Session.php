@@ -461,7 +461,7 @@ class Zebra_Session {
     function read($session_id) {
 
         // get the lock name, associated with the current session
-        $this->session_lock = $this->_mysql_real_escape_string('session_' . $session_id);
+        $this->session_lock = $this->_mysql_real_escape_string('session_' . sha1($session_id));
 
         // try to obtain a lock with the given name and timeout
         $result = $this->_mysql_query('SELECT GET_LOCK("' . $this->session_lock . '", ' . $this->_mysql_real_escape_string($this->lock_timeout) . ')');
